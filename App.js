@@ -11,23 +11,32 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 // }
 
 export default function App() {
-  const [value, setValue] = useState("");
+  const [display, setDisplay] = useState([""]);
   const [answer, setAnswer] = useState("");
-  let display = [""]
-  const handlePress = (val) => {
-    if (val === "=") {
-      setAnswer("254")
+  const [num1, setNum1] = useState("");
+  const [operator, setOperator] = useState("");
+  const [num2, setNum2] = useState("");
+  const handlePress = (val, operator) => {
+    if (val === "C") {
+      setDisplay([""]);
+    } else if (val === "DEL") {
+      // setDisplay(prevDisplay => [])
+    } else if (val === "=") {
+      if (num1 && operator && num2) {
+        setAnswer(eval(num1+operator+num2));
+      }
+      // setDisplay([...display, val]);
+    } else {
+      setDisplay(prevDisplay => [...prevDisplay, val]);
     }
-    setValue(val)
-    display.join(value)
   }
   return (
     <View style={styles.container}>
       <View>
-        <StatusBar style="light" />
+        <StatusBar style="auto" />
         <View className="flex h-full w-screen bg-[#1E201E]">
           <View className="w-full h-1/3 grid justify-end items-end p-4">
-            <Text className="text-white opacity-50 text-5xl">{value}</Text>
+            <Text className="text-white opacity-50 text-5xl">{display.join("")}</Text>
             <Text className="text-white text-6xl">{answer}</Text>
           </View>
           <View className="w-full flex-1 grid gap-6 p-4">
@@ -35,19 +44,23 @@ export default function App() {
               {[
                 {
                   text: "C",
-                  category: 1
+                  category: 1,
+                  type: "command"
                 },
                 {
                   text: "DEL",
-                  category: 1
+                  category: 1,
+                  type: "command"
                 },
                 {
                   text: "%",
-                  category: 1
+                  category: 1,
+                  type: "operator"
                 },
                 {
                   text: "/",
-                  category: 3
+                  category: 3,
+                  type: "operator"
                 },
               ].map((row, index) => (
                 <Button key={index} text={row.text} category={row.category} onPress={() => handlePress(row.text)} />
@@ -57,19 +70,23 @@ export default function App() {
               {[
                 {
                   text: "7",
-                  category: 2
+                  category: 2,
+                  type: "number"
                 },
                 {
                   text: "8",
-                  category: 2
+                  category: 2,
+                  type: "number"
                 },
                 {
                   text: "9",
-                  category: 2
+                  category: 2,
+                  type: "number"
                 },
                 {
                   text: "*",
-                  category: 3
+                  category: 3,
+                  type: "operator"
                 },
               ].map((row, index) => (
                 <Button key={index} text={row.text} category={row.category} onPress={() => handlePress(row.text)} />
@@ -79,19 +96,23 @@ export default function App() {
               {[
                 {
                   text: "4",
-                  category: 2
+                  category: 2,
+                  type: "number"
                 },
                 {
                   text: "5",
-                  category: 2
+                  category: 2,
+                  type: "number"
                 },
                 {
                   text: "6",
-                  category: 2
+                  category: 2,
+                  type: "number"
                 },
                 {
                   text: "-",
-                  category: 3
+                  category: 3,
+                  type: "operator"
                 },
               ].map((row, index) => (
                 <Button key={index} text={row.text} category={row.category} onPress={() => handlePress(row.text)} />
@@ -101,19 +122,23 @@ export default function App() {
               {[
                 {
                   text: "1",
-                  category: 2
+                  category: 2,
+                  type: "number"
                 },
                 {
                   text: "2",
-                  category: 2
+                  category: 2,
+                  type: "number"
                 },
                 {
                   text: "3",
-                  category: 2
+                  category: 2,
+                  type: "number"
                 },
                 {
                   text: "+",
-                  category: 3
+                  category: 3,
+                  type: "operator"
                 },
               ].map((row, index) => (
                 <Button key={index} text={row.text} category={row.category} onPress={() => handlePress(row.text)} />
