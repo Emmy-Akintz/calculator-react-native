@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native';
 
 // const colors = {
 //   black: "#1E201E",
@@ -109,7 +109,7 @@ export default function App() {
     <View style={styles.container}>
       <View>
         <StatusBar style="auto" />
-        <View className="flex h-full w-screen bg-[#1E201E]">
+        <View className={`flex h-full ${Platform.OS === "android" ? 'w-screen' : 'w-full'} bg-[#1E201E]`}>
           <View className="w-full h-1/3 grid justify-end items-end p-4">
             <Text className="text-white opacity-50 text-5xl">{display.join("")}</Text>
             <Text className="text-white text-6xl">{answer}</Text>
