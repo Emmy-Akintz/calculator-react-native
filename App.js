@@ -26,9 +26,16 @@ export default function App() {
   const handlePress = (val) => {
     const isNumber = !isNaN(val) || val === ".";
     let hasPreviousAnswer = answer !== "";
+    let isOperator = !isNumber && val !== "=" && val !== "C" && val !== "DEL";
 
-    if (!isNumber && val !== "=" && val !== "C" && val !== "DEL" && num1 === "") {
-      return;
+    if (isOperator && num1 === "") {
+      isOperator = false;
+      return;//to prevent operator input if there is no num1 just yet
+    }
+
+    if (isOperator && num1.length > 0 && num2.length > 0 && operator.length > 0 && answer.length === 0) {
+      isOperator = false;
+      return; //to prevent another operator when num1, operator and num2 has been supplied...
     }
 
     if (val === "C") {
@@ -42,7 +49,8 @@ export default function App() {
     }
 
     if (hasPreviousAnswer) {
-      if (!isNumber && val !== "=" && val !== "C" && val !== "DEL") {
+      if (isOperator) {
+        isOperator = false;
         setNum1(answer);
         setNum2("");
         setOperator(val);
@@ -64,7 +72,8 @@ export default function App() {
     } else if (isNumber && operator) {
       setNum2(prevNum2 => (prevNum2 === "" ? val : prevNum2 + val));
       setDisplay(prevDisplay => [...prevDisplay, val]);
-    } else if (!isNumber && val !== "=" && val !== "C" && val !== "DEL") {
+    } else if (isOperator) {
+      isOperator = false;
       const lastChar = display[display.length - 1];
       if (lastChar === val) {
         return;
@@ -232,7 +241,7 @@ export default function App() {
           </View>
         </View>
       </View>
-      <StatusBar style="auto" />
+      {/* <StatusBar style="auto" /> */}
     </View>
   );
 }
