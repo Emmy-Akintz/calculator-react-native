@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Text, View, Platform } from 'react-native';
-import Button from './components/button';
+import { Text, View, Platform, TouchableOpacity } from 'react-native';
+// import Button from './components/button';
 import { line1, line2, line3, line4, line5 } from './constants/data';
 import { styles } from './styles/style';
 
@@ -156,4 +156,32 @@ export default function App() {
       {/* <StatusBar style="auto" /> */}
     </View>
   );
+}
+
+const Button = ({ text, category, ...props }) => {
+  if (category === 1) {
+      return (
+          <TouchableOpacity {...props} className="bg-[#697565] h-20 w-20 rounded-full flex justify-center items-center">
+              <Text className="text-[#1E201E] font-semibold text-3xl">{text}</Text>
+          </TouchableOpacity>
+      )
+  } else if (category === 2) {
+      return (
+          <TouchableOpacity {...props} className="bg-[#3C3D37] h-20 w-20 rounded-full flex justify-center items-center">
+              <Text className="text-[#FFFFFF] font-semibold text-3xl">{text}</Text>
+          </TouchableOpacity>
+      )
+  } else if (category === 3) {
+      return (
+          <TouchableOpacity {...props} className="bg-[#eab308] h-20 w-20 rounded-full flex justify-center items-center">
+              <Text className="text-[#FFFFFF] font-semibold text-3xl">{text}</Text>
+          </TouchableOpacity>
+      )
+  } else if (category === 4) {
+      return (
+          <TouchableOpacity {...props} className="bg-[#3C3D37] h-20 w-44 pl-8 rounded-full flex justify-center items-start">
+              <Text className="text-[#FFFFFF] font-semibold text-3xl">{text}</Text>
+          </TouchableOpacity>
+      )
+  }
 }
